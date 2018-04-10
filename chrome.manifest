@@ -1,0 +1,11 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+content	search-body-in-quoted-printable	content/
+locale	search-body-in-quoted-printable	en-US	locale/en-US/
+locale	search-body-in-quoted-printable	ja	locale/ja/
+
+overlay	chrome://messenger/content/messenger.xul	chrome://rescue-conflicting-alternatives/content/messenger-overlay.xul
+overlay	chrome://messenger/content/SearchDialog.xul	chrome://search-body-in-quoted-printable/content/SearchDialog-overlay.xul
+
