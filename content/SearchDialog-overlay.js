@@ -17,10 +17,12 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
   if (searchButton)
     searchButton.parentNode.insertBefore(button, searchButton);
 
+  const conditionRows = () => {
+    return Array.slice(document.querySelectorAll('searchvalue'), 0);
+  };
   const bodyConditionRows = () => {
-    let searchValues = Array.slice(document.querySelectorAll('searchvalue'), 0);
-    return searchValues.filter(aSearchValue => {
-      return aSearchValue.searchAttribute == Components.interfaces.nsMsgSearchAttrib.Body;
+    return conditionRows().filter(aRow => {
+      return aRow.searchAttribute == Components.interfaces.nsMsgSearchAttrib.Body;
     });
   };
   const rowToField = (aRow) => {
@@ -28,16 +30,30 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
     return fields[aRow.getAttribute('selectedIndex')];
   };
 
+  let checkedTerms;
+
   gSearchBodyInQuotedPrintable = new SearchBodyInQuotedPrintable({
     fields: () => {
       return bodyConditionRows().map(rowToField);
     },
     onFieldExpanded: (aField, aExpandedTerms) => {
+      checkedTerms = checkedTerms || new Map();
+      if (checkedTerms.get(aField.value))
+        return;
       for (let term of aExpandedTerms) {
-        const rows = bodyConditionRows();
-        if (rows.some(aRow => rowToField(aRow).value == term))
+        if (checkedTerms.get(term) ||
+            bodyConditionRows().some(aRow => {
+              if (rowToField(aRow).value == term) {
+                checkedTerms.set(term, true);
+                return true;
+              }
+              else {
+                return false;
+              }
+            }))
           continue;
         onMore(null);
+        const rows = conditionRows();
         const row = rows[rows.length - 1];
         row.opParentValue = aField.parentNode.opParentValue;
         row.searchAttribute = aField.parentNode.searchAttribute;
@@ -51,6 +67,7 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
       if (booleanCondition.value != 'or')
         booleanCondition.querySelector('radio[value="or"]').click();
       onSearch();
+      checkedTerms = null;
     }
   });
 }, false);
