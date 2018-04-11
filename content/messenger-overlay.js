@@ -9,9 +9,9 @@
   const Prefs = Cc['@mozilla.org/preferences;1'].getService(Ci.nsIPrefBranch);
   const { Promise } = Cu.import('resource://gre/modules/Promise.jsm', {});
 
-  var SearchBodyInQuotedPrintable = {
+  const SearchBodyInQuotedPrintable = {
     lastSearchTerm : null,
-    lastEncodedSearchTerm : null,
+    lastExpandedSearchTerm : null,
 
     log : function(...aArgs) {
       if (!Prefs.getBoolPref('extensions.search-body-in-quoted-printable@clear-code.com.debug'))
@@ -24,8 +24,8 @@
       return document.getElementById('qfb-qs-textbox');
     },
 
-    get defaultEncoding() {
-      return 'ISO-2022-JP';
+    get encodings() {
+      return Prefs.getCharPref('extensions.search-body-in-quoted-printable@clear-code.com.encodings').split(/[|\s,]+/).filter(aEncoding => !!aEncoding);
     },
 
     init : function() {
@@ -34,14 +34,20 @@
     onCommand : function(aEvent) {
       if (!this.lastSearchTerm) {
         const searchTerm = this.field.value.trim();
+        this.log('searchTerm = ' + searchTerm);
         if (!searchTerm)
           return;
         this.lastSearchTerm = searchTerm;
       }
-      const encoding = aEvent.target.getAttribute('value') || this.defaultEncoding;
-      const encoded = this.toQuotedPrintable(this.lastSearchTerm, encoding);
-      this.lastEncodedSearchTerm = encoded;
-      this.field.value = encoded;
+      this.log('lastSearchTerm = ' + this.lastSearchTerm);
+      const encodeds = this.encodings.map(aEncoding => {
+        const encoded = this.toQuotedPrintable(this.lastSearchTerm, aEncoding);
+        this.log(`${aEncoding}: ${encoded}`);
+        return encoded;
+      });
+      this.lastExpandedSearchTerm = [this.lastSearchTerm].concat(encodeds).join('|');
+      this.log('query = ' + this.lastExpandedSearchTerm);
+      this.field.value = this.lastExpandedSearchTerm;
       this.field.doCommand();
     },
 

@@ -9,15 +9,8 @@
     <toolbarbutton id="search-body-in-different-encoding-button"
                    insertafter="qfb-results-label"
                    class="toolbarbutton-1"
-                   type="menu-button"
                    label="Search Again"
                    orient="horizontal"
-                   oncommand="SearchBodyInQuotedPrintable.onCommand(event)">
-      <menupopup>
-        <menuitem label="ISO-2022-JP" value="ISO-2022-JP"/>
-        <menuitem label="Shift_JIS" value="Shift_JIS"/>
-        <menuitem label="UTF-8" value="UTF-8"/>
-      </menupopup>
-    </toolbarbutton>
+                   oncommand="SearchBodyInQuotedPrintable.onCommand(event)"/>
   </hbox>
 </overlay>
