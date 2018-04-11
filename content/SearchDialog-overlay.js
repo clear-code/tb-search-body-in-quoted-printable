@@ -33,8 +33,8 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
         const rows = document.querySelectorAll('searchvalue');
         const row = rows[rows.length - 1];
         row.opParentValue = aField.parentNode.opParentValue;
-        row.parentValue = aField.parentNode.parentValue;
         row.searchAttribute = aField.parentNode.searchAttribute;
+        row.value = aField.parentNode.value;
         const fields = document.getAnonymousNodes(row);
         fields[row.getAttribute('selectedIndex')].value = term;
       }
