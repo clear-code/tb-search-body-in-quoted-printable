@@ -8,9 +8,9 @@
   <script type="application/javascript" src="SearchBodyInQuotedPrintable.js"/>
   <script type="application/javascript" src="messenger-overlay.js"/>
 
-  <hbox id="quick-filter-bar-main-bar">
+  <hbox id="quick-filter-bar-filter-text-bar">
     <toolbarbutton id="search-body-in-different-encoding-button"
-                   insertafter="qfb-results-label"
+                   insertafter="qfb-qs-body"
                    class="toolbarbutton-1"
                    label="&searchBodyInDifferentEncodingButton.label;"
                    tooltiptext="&searchBodyInDifferentEncodingButton.tooltiptext;"

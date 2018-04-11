@@ -2,6 +2,6 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<!ENTITY searchBodyInDifferentEncodingButton.label       "Search Again">
-<!ENTITY searchBodyInDifferentEncodingButton.tooltiptext "Search Again in Quoted-Printable">
+<!ENTITY searchBodyInDifferentEncodingButton.label       "Search in Quoted-Printable">
+<!ENTITY searchBodyInDifferentEncodingButton.tooltiptext "Search Again for messages with Quoted-Printable encoded body">
 

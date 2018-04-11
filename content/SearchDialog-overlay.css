@@ -3,10 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
-#qfb-qs-body:not([checked="true"]) ~ #search-body-in-different-encoding-button {
+#search-body-in-different-encoding-button[disabled="true"] {
   visibility: collapse;
 }
 
-#search-body-in-different-encoding-button image {
-  display: none;
-}

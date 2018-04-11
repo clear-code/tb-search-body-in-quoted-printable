@@ -6,16 +6,22 @@ var gSearchBodyInQuotedPrintable;
 window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) {
   window.removeEventListener(aEvent.type, onDOMContentLoaded, false);
 
+  const container = document.getElementById('booleanAndGroup');
+  if (!container)
+    return;
+
+  const spacer = document.createElement('spacer');
+  spacer.setAttribute('flex', 1);
+  container.appendChild(spacer);
+
   const bundle = document.getElementById('search-body-in-quoted-printable-bundle');
   const button = document.createElement('button');
   button.setAttribute('id', 'search-body-in-different-encoding-button');
   button.setAttribute('label', bundle.getString('searchBodyInDifferentEncodingButton.label'));
   button.setAttribute('tooltiptext', bundle.getString('searchBodyInDifferentEncodingButton.tooltiptext'));
   button.setAttribute('oncommand', 'gSearchBodyInQuotedPrintable.expandQuery()');
-
-  const searchButton = document.getElementById('search-button');
-  if (searchButton)
-    searchButton.parentNode.insertBefore(button, searchButton);
+  button.setAttribute('disabled', true);
+  container.appendChild(button);
 
   const conditionRows = () => {
     return Array.slice(document.querySelectorAll('searchvalue'), 0);
@@ -30,13 +36,47 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
     return fields[aRow.getAttribute('selectedIndex')];
   };
 
-  let checkedTerms;
 
+  const updateButton = () => {
+    if (bodyConditionRows().length > 0)
+      button.removeAttribute('disabled');
+    else
+      button.setAttribute('disabled', true);
+  };
+
+  SearchFolderDisplayWidget.prototype.__search_body_in_quoted_printable__onSearching = SearchFolderDisplayWidget.prototype.onSearching;
+  SearchFolderDisplayWidget.prototype.onSearching = function(aIsSearching) {
+    updateButton();
+    return this.__search_body_in_quoted_printable__onSearching(aIsSearching);
+  };
+
+  window.__search_body_in_quoted_printable__onResetSearch = window.onResetSearch;
+  window.onResetSearch = function(aEvent) {
+    updateButton();
+    return this.__search_body_in_quoted_printable__onResetSearch(aEvent);
+  };
+
+  window.__search_body_in_quoted_printable__onMore = window.onMore;
+  window.onMore = function(aEvent) {
+    updateButton();
+    return this.__search_body_in_quoted_printable__onMore(aEvent);
+  };
+
+  window.__search_body_in_quoted_printable__onLess = window.onLess;
+  window.onLess = function(aEvent) {
+    updateButton();
+    return this.__search_body_in_quoted_printable__onLess(aEvent);
+  };
+
+
+  let checkedTerms;
   gSearchBodyInQuotedPrintable = new SearchBodyInQuotedPrintable({
     fields: () => {
       return bodyConditionRows().map(rowToField);
     },
     onFieldExpanded: (aField, aExpandedTerms) => {
+      if (!aField.value)
+        return;
       checkedTerms = checkedTerms || new Map();
       if (checkedTerms.get(aField.value))
         return;
@@ -57,9 +97,9 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
         const row = rows[rows.length - 1];
         row.opParentValue = aField.parentNode.opParentValue;
         row.searchAttribute = aField.parentNode.searchAttribute;
-        row.value = aField.parentNode.value;
+        if (aField.parentNode.value)
+          row.value = aField.parentNode.value;
         rowToField(row).value = term;
-        row.save();
       }
     },
     onExpanded: () => {

@@ -2,5 +2,5 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<!ENTITY searchBodyInDifferentEncodingButton.label       "再検索">
-<!ENTITY searchBodyInDifferentEncodingButton.tooltiptext "Quoted-Printableでも再検索">
+<!ENTITY searchBodyInDifferentEncodingButton.label       "Quoted-Printableで再検索">
+<!ENTITY searchBodyInDifferentEncodingButton.tooltiptext "本文がQuoted-Printableのメールを対象に再検索する">
