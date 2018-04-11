@@ -5,6 +5,7 @@
 <?xml-stylesheet type="text/css" href="messenger-overlay.css"?>
 <!DOCTYPE overlay SYSTEM "chrome://search-body-in-quoted-printable/locale/search-body-in-quoted-printable.dtd">
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/javascript" src="SearchBodyInQuotedPrintable.js"/>
   <script type="application/javascript" src="messenger-overlay.js"/>
 
   <hbox id="quick-filter-bar-main-bar">
@@ -14,6 +15,6 @@
                    label="&searchBodyInDifferentEncodingButton.label;"
                    tooltiptext="&searchBodyInDifferentEncodingButton.tooltiptext;"
                    orient="horizontal"
-                   oncommand="SearchBodyInQuotedPrintable.onCommand(event)"/>
+                   oncommand="gSearchBodyInQuotedPrintable.onCommand(event)"/>
   </hbox>
 </overlay>
