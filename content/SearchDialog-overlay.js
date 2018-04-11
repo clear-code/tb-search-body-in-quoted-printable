@@ -37,11 +37,14 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
         row.value = aField.parentNode.value;
         const fields = document.getAnonymousNodes(row);
         fields[row.getAttribute('selectedIndex')].value = term;
+        row.save();
       }
     },
     onExpanded: () => {
-      document.getElementById('booleanAndGroup').value = 'or';
-      document.getElementById('search-button').click();
+      const booleanCondition = document.getElementById('booleanAndGroup');
+      if (booleanCondition.value != 'or')
+        booleanCondition.querySelector('radio[value="or"]').click();
+      onSearch();
     }
   });
 }, false);
