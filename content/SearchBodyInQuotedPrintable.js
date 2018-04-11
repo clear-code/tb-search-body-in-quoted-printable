@@ -47,7 +47,7 @@
         return encoded;
       });
       aField.value = [searchTerm].concat(encodeds).join('|');
-      this.log('query = ' + this.field.value);
+      this.log('query = ' + aField.value);
       return true;
     },
 
