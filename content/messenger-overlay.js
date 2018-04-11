@@ -6,6 +6,8 @@ var gSearchBodyInQuotedPrintable;
 window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) {
   window.removeEventListener(aEvent.type, onDOMContentLoaded, false);
   gSearchBodyInQuotedPrintable = new SearchBodyInQuotedPrintable({
-    field: document.getElementById('qfb-qs-textbox')
+    fields: [
+      document.getElementById('qfb-qs-textbox')
+    ]
   });
 }, false);

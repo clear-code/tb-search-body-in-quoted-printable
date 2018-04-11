@@ -10,7 +10,7 @@
 
   const SearchBodyInQuotedPrintable = function(aParams) {
     aParams = aParams || {};
-    this.field = aParams.field;
+    this.fields = aParams.fields;
   };
   SearchBodyInQuotedPrintable.prototype = {
     log : function(...aArgs) {
@@ -25,7 +25,18 @@
     },
 
     expandQuery : function() {
-      const searchTerm = this.field.value.trim();
+      let expanded = false;
+      let fields = this.fields;
+      if (typeof fields == 'function')
+        fields = fields();
+      for (let field of fields) {
+        expanded = this.expandQueryForField(field) || expanded;
+      }
+      return expanded;
+    },
+
+    expandQueryForField : function(aField) {
+      const searchTerm = aField.value.trim();
       this.log('searchTerm = ' + searchTerm);
       if (!searchTerm)
         return false;
@@ -35,7 +46,7 @@
         this.log(`${aEncoding}: ${encoded}`);
         return encoded;
       });
-      this.field.value = [searchTerm].concat(encodeds).join('|');
+      aField.value = [searchTerm].concat(encodeds).join('|');
       this.log('query = ' + this.field.value);
       return true;
     },
