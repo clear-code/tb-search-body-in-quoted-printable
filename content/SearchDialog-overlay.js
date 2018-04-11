@@ -17,26 +17,32 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
   if (searchButton)
     searchButton.parentNode.insertBefore(button, searchButton);
 
+  const bodyConditionRows = () => {
+    let searchValues = Array.slice(document.querySelectorAll('searchvalue'), 0);
+    return searchValues.filter(aSearchValue => {
+      return aSearchValue.searchAttribute == Components.interfaces.nsMsgSearchAttrib.Body;
+    });
+  };
+  const rowToField = (aRow) => {
+    const fields = document.getAnonymousNodes(aRow);
+    return fields[aRow.getAttribute('selectedIndex')];
+  };
+
   gSearchBodyInQuotedPrintable = new SearchBodyInQuotedPrintable({
     fields: () => {
-      let searchValues = Array.slice(document.querySelectorAll('searchvalue'), 0);
-      return searchValues.filter(aSearchValue => {
-        return aSearchValue.searchAttribute == Components.interfaces.nsMsgSearchAttrib.Body
-      }).map(aSearchValue => {
-        const fields = document.getAnonymousNodes(aSearchValue);
-        return fields[aSearchValue.getAttribute('selectedIndex')];
-      });
+      return bodyConditionRows().map(rowToField);
     },
     onFieldExpanded: (aField, aExpandedTerms) => {
       for (let term of aExpandedTerms) {
+        const rows = bodyConditionRows();
+        if (rows.some(aRow => rowToField(aRow).value == term))
+          continue;
         onMore(null);
-        const rows = document.querySelectorAll('searchvalue');
         const row = rows[rows.length - 1];
         row.opParentValue = aField.parentNode.opParentValue;
         row.searchAttribute = aField.parentNode.searchAttribute;
         row.value = aField.parentNode.value;
-        const fields = document.getAnonymousNodes(row);
-        fields[row.getAttribute('selectedIndex')].value = term;
+        rowToField(row).value = term;
         row.save();
       }
     },
