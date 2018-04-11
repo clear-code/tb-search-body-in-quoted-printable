@@ -7,12 +7,8 @@
   const Cu = Components.utils;
   const Cr = Components.results;
   const Prefs = Cc['@mozilla.org/preferences;1'].getService(Ci.nsIPrefBranch);
-  const { Promise } = Cu.import('resource://gre/modules/Promise.jsm', {});
 
   const SearchBodyInQuotedPrintable = {
-    lastSearchTerm : null,
-    lastExpandedSearchTerm : null,
-
     log : function(...aArgs) {
       if (!Prefs.getBoolPref('extensions.search-body-in-quoted-printable@clear-code.com.debug'))
         return;
@@ -28,9 +24,6 @@
       return Prefs.getCharPref('extensions.search-body-in-quoted-printable@clear-code.com.encodings').split(/[|\s,]+/).filter(aEncoding => !!aEncoding);
     },
 
-    init : function() {
-    },
-
     onCommand : function(aEvent) {
       if (!this.searchBody)
         return;
@@ -39,17 +32,14 @@
       this.log('searchTerm = ' + searchTerm);
       if (!searchTerm)
         return;
-      this.lastSearchTerm = searchTerm;
 
-      this.log('lastSearchTerm = ' + this.lastSearchTerm);
       const encodeds = this.encodings.map(aEncoding => {
-        const encoded = this.toQuotedPrintable(this.lastSearchTerm, aEncoding);
+        const encoded = this.toQuotedPrintable(searchTerm, aEncoding);
         this.log(`${aEncoding}: ${encoded}`);
         return encoded;
       });
-      this.lastExpandedSearchTerm = [this.lastSearchTerm].concat(encodeds).join('|');
-      this.log('query = ' + this.lastExpandedSearchTerm);
-      this.field.value = this.lastExpandedSearchTerm;
+      this.field.value = [searchTerm].concat(encodeds).join('|');
+      this.log('query = ' + this.field.value);
       this.field.doCommand();
     },
 
@@ -141,9 +131,4 @@
   };
 
   aGlobal.SearchBodyInQuotedPrintable = SearchBodyInQuotedPrintable;
-
-  window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) {
-    window.removeEventListener(aEvent.type, onDOMContentLoaded, false);
-    SearchBodyInQuotedPrintable.init();
-  }, false);
 })(this);
