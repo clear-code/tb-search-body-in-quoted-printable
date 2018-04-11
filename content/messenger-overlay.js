@@ -35,11 +35,11 @@
       if (!this.searchBody)
         return;
 
-        const searchTerm = this.field.value.trim();
-        this.log('searchTerm = ' + searchTerm);
-        if (!searchTerm)
-          return;
-        this.lastSearchTerm = searchTerm;
+      const searchTerm = this.field.value.trim();
+      this.log('searchTerm = ' + searchTerm);
+      if (!searchTerm)
+        return;
+      this.lastSearchTerm = searchTerm;
 
       this.log('lastSearchTerm = ' + this.lastSearchTerm);
       const encodeds = this.encodings.map(aEncoding => {
