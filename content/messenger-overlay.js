@@ -39,8 +39,7 @@
       const encoded = this.toQuotedPrintable(this.lastSearchTerm, encoding);
       this.lastEncodedSearchTerm = encoded;
       this.field.value = encoded;
-      //QuickFilterBarMuxer.updateSearch();
-      // how to search again?
+      this.field.doCommand();
     },
 
     toQuotedPrintable : function(aInput, aEncoding) {
