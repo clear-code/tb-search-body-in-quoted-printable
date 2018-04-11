@@ -24,14 +24,11 @@
       return Prefs.getCharPref('extensions.search-body-in-quoted-printable@clear-code.com.encodings').split(/[|\s,]+/).filter(aEncoding => !!aEncoding);
     },
 
-    onCommand : function(aEvent) {
-      if (!this.searchBody)
-        return;
-
+    expandQuery : function() {
       const searchTerm = this.field.value.trim();
       this.log('searchTerm = ' + searchTerm);
       if (!searchTerm)
-        return;
+        return false;
 
       const encodeds = this.encodings.map(aEncoding => {
         const encoded = this.toQuotedPrintable(searchTerm, aEncoding);
@@ -40,7 +37,7 @@
       });
       this.field.value = [searchTerm].concat(encodeds).join('|');
       this.log('query = ' + this.field.value);
-      this.field.doCommand();
+      return true;
     },
 
     toQuotedPrintable : function(aInput, aEncoding) {

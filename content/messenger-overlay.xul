@@ -15,6 +15,6 @@
                    label="&searchBodyInDifferentEncodingButton.label;"
                    tooltiptext="&searchBodyInDifferentEncodingButton.tooltiptext;"
                    orient="horizontal"
-                   oncommand="gSearchBodyInQuotedPrintable.onCommand(event)"/>
+                   oncommand="if (gSearchBodyInQuotedPrintable.expandQuery()) gSearchBodyInQuotedPrintable.field.doCommand();"/>
   </hbox>
 </overlay>
