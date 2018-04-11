@@ -25,6 +25,22 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
         const fields = document.getAnonymousNodes(aSearchValue);
         return fields[aSearchValue.getAttribute('selectedIndex')];
       });
+    },
+    onFieldExpanded: (aField, aExpandedTerms) => {
+      for (let term of aExpandedTerms) {
+        onMore(null);
+        const rows = document.querySelectorAll('searchvalue');
+        const row = rows[rows.length - 1];
+        row.opParentValue = aField.parentNode.opParentValue;
+        row.parentValue = aField.parentNode.parentValue;
+        row.searchAttribute = aField.parentNode.searchAttribute;
+        const fields = document.getAnonymousNodes(row);
+        fields[row.getAttribute('selectedIndex')].value = term;
+      }
+    },
+    onExpanded: () => {
+      document.getElementById('booleanAndGroup').value = 'or';
+      document.getElementById('search-button').click();
     }
   });
 }, false);

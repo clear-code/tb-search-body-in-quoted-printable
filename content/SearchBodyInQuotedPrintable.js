@@ -11,6 +11,8 @@
   const SearchBodyInQuotedPrintable = function(aParams) {
     aParams = aParams || {};
     this.fields = aParams.fields;
+    this.onFieldExpanded = aParams.onFieldExpanded;
+    this.onExpanded = aParams.onExpanded;
   };
   SearchBodyInQuotedPrintable.prototype = {
     log : function(...aArgs) {
@@ -32,6 +34,8 @@
       for (let field of fields) {
         expanded = this.expandQueryForField(field) || expanded;
       }
+      if (expanded && typeof this.onExpanded == 'function')
+        this.onExpanded();
       return expanded;
     },
 
@@ -46,8 +50,9 @@
         this.log(`${aEncoding}: ${encoded}`);
         return encoded;
       });
-      aField.value = [searchTerm].concat(encodeds).join('|');
-      this.log('expanded query = ' + aField.value);
+      if (typeof this.onFieldExpanded == 'function')
+        this.onFieldExpanded(aField, encodeds);
+      this.log('expanded query = ' + encodeds.join(', '));
       return true;
     },
 

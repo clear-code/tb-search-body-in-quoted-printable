@@ -8,6 +8,12 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
   gSearchBodyInQuotedPrintable = new SearchBodyInQuotedPrintable({
     fields: [
       document.getElementById('qfb-qs-textbox')
-    ]
+    ],
+    onFieldExpanded: (aField, aExpandedTerms) => {
+      aField.value = [aField.value].concat(aExpandedTerms).join('|');
+    },
+    onExpanded: () => {
+     document.getElementById('qfb-qs-textbox').doCommand();
+    }
   });
 }, false);
