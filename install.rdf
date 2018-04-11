@@ -7,7 +7,7 @@
                    em:name="Search Body in Quoted Printable"
                    em:version="0.1"
                    em:type="2"
-                   em:description="Provides ability to search messages with bodies encoded in Quoted-Printable."
+                   em:description="Provides ability to search messages with bodies encoded in Quoted-Printable, as a workaround for the bug 667854."
                    em:creator="ClearCode Inc."
                    em:homepageURL="http://www.clear-code.com/">
 
@@ -26,7 +26,7 @@
     <em:localized>
       <RDF:Description em:locale="ja"
                        em:name="Search Body in Quoted Printable"
-                       em:description="本文がQuoted-Printableでエンコードされたメールを検索できるようにします。"
+                       em:description="Bug 667854の回避策として、本文がQuoted-Printableでエンコードされたメールを検索できるようにします。"
                        em:creator="ClearCode Inc."
                        em:homepageURL="http://www.clear-code.com/">
       </RDF:Description>
