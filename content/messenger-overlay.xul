@@ -3,6 +3,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <?xml-stylesheet type="text/css" href="messenger-overlay.css"?>
+<!DOCTYPE overlay SYSTEM "chrome://search-body-in-quoted-printable/locale/search-body-in-quoted-printable.dtd">
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/javascript" src="messenger-overlay.js"/>
 
@@ -10,7 +11,8 @@
     <toolbarbutton id="search-body-in-different-encoding-button"
                    insertafter="qfb-results-label"
                    class="toolbarbutton-1"
-                   label="Search Again"
+                   label="&searchBodyInDifferentEncodingButton.label;"
+                   tooltiptext="&searchBodyInDifferentEncodingButton.tooltiptext;"
                    orient="horizontal"
                    oncommand="SearchBodyInQuotedPrintable.onCommand(event)"/>
   </hbox>

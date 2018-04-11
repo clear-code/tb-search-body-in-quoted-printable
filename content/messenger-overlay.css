@@ -7,3 +7,7 @@
 #qfb-results-label[style*="visibility"]:not([style*="visible"]) ~ #search-body-in-different-encoding-button {
   visibility: collapse;
 }
+
+#search-body-in-different-encoding-button image {
+  display: none;
+}
