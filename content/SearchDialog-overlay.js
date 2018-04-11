@@ -6,11 +6,12 @@ var gSearchBodyInQuotedPrintable;
 window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) {
   window.removeEventListener(aEvent.type, onDOMContentLoaded, false);
 
+  const bundle = document.getElementById('search-body-in-quoted-printable-bundle');
   const button = document.createElement('button');
   button.setAttribute('id', 'search-body-in-different-encoding-button');
-  button.setAttribute('label', 'searchBodyInDifferentEncodingButton.label');
-  button.setAttribute('tooltiptext', 'searchBodyInDifferentEncodingButton.tooltiptext');
-  button.setAttribute('oncommand', 'if (gSearchBodyInQuotedPrintable.expandQuery()) document.getElementById("search-button").click();');
+  button.setAttribute('label', bundle.getString('searchBodyInDifferentEncodingButton.label'));
+  button.setAttribute('tooltiptext', bundle.getString('searchBodyInDifferentEncodingButton.tooltiptext'));
+  button.setAttribute('oncommand', 'gSearchBodyInQuotedPrintable.expandQuery()');
 
   const searchButton = document.getElementById('search-button');
   if (searchButton)
