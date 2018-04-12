@@ -6,7 +6,4 @@
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/javascript" src="SearchBodyInQuotedPrintable.js"/>
   <script type="application/javascript" src="SearchDialog-overlay.js"/>
-  <vbox id="searchTerms">
-    <stringbundle id="search-body-in-quoted-printable-bundle" src="chrome://search-body-in-quoted-printable/locale/search-body-in-quoted-printable.properties"/>
-  </vbox>
 </overlay>

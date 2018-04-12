@@ -6,36 +6,22 @@ var gSearchBodyInQuotedPrintable;
 window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) {
   window.removeEventListener(aEvent.type, onDOMContentLoaded, false);
 
+  const setupButton = () => {
   const container = document.getElementById('booleanAndGroup');
   if (!container)
-    return;
+    return false;
 
   const spacer = document.createElement('spacer');
   spacer.setAttribute('flex', 1);
   container.appendChild(spacer);
 
-  const bundle = document.getElementById('search-body-in-quoted-printable-bundle');
   const button = document.createElement('button');
   button.setAttribute('id', 'search-body-in-different-encoding-button');
-  button.setAttribute('label', bundle.getString('searchBodyInDifferentEncodingButton.label'));
-  button.setAttribute('tooltiptext', bundle.getString('searchBodyInDifferentEncodingButton.tooltiptext'));
+  button.setAttribute('label', gSearchBodyInQuotedPrintable.getLocalizedPref('extensions.search-body-in-quoted-printable@clear-code.com.searchDialog.button.label'));
+  button.setAttribute('tooltiptext', gSearchBodyInQuotedPrintable.getLocalizedPref('extensions.search-body-in-quoted-printable@clear-code.com.searchDialog.button.tooltiptext'));
   button.setAttribute('oncommand', 'gSearchBodyInQuotedPrintable.expandQuery()');
   button.setAttribute('disabled', true);
   container.appendChild(button);
-
-  const conditionRows = () => {
-    return Array.slice(document.querySelectorAll('searchvalue'), 0);
-  };
-  const bodyConditionRows = () => {
-    return conditionRows().filter(aRow => {
-      return aRow.searchAttribute == Components.interfaces.nsMsgSearchAttrib.Body;
-    });
-  };
-  const rowToField = (aRow) => {
-    const fields = document.getAnonymousNodes(aRow);
-    return fields[aRow.getAttribute('selectedIndex')];
-  };
-
 
   const updateButton = () => {
     if (bodyConditionRows().length > 0)
@@ -67,7 +53,21 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
     updateButton();
     return this.__search_body_in_quoted_printable__onLess(aEvent);
   };
+    return true;
+  };
 
+  const conditionRows = () => {
+    return Array.slice(document.querySelectorAll('searchvalue'), 0);
+  };
+  const bodyConditionRows = () => {
+    return conditionRows().filter(aRow => {
+      return aRow.searchAttribute == Components.interfaces.nsMsgSearchAttrib.Body;
+    });
+  };
+  const rowToField = (aRow) => {
+    const fields = document.getAnonymousNodes(aRow);
+    return fields[aRow.getAttribute('selectedIndex')];
+  };
 
   let checkedTerms;
   gSearchBodyInQuotedPrintable = new SearchBodyInQuotedPrintable({
@@ -110,4 +110,6 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
       checkedTerms = null;
     }
   });
+
+  setupButton();
 }, false);

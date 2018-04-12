@@ -16,4 +16,7 @@ window.addEventListener('DOMContentLoaded', function onDOMContentLoaded(aEvent) 
      document.getElementById('qfb-qs-textbox').doCommand();
     }
   });
+  const button = document.getElementById('search-body-in-different-encoding-button');
+  button.setAttribute('label', gSearchBodyInQuotedPrintable.getLocalizedPref('extensions.search-body-in-quoted-printable@clear-code.com.quickFilter.button.label'));
+  button.setAttribute('tooltiptext', gSearchBodyInQuotedPrintable.getLocalizedPref('extensions.search-body-in-quoted-printable@clear-code.com.quickFilter.button.tooltiptext'));
 }, false);

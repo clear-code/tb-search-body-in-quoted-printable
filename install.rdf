@@ -5,7 +5,7 @@
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:id="search-body-in-quoted-printable@clear-code.com"
                    em:name="Search Body in Quoted Printable"
-                   em:version="0.1"
+                   em:version="0.2"
                    em:type="2"
                    em:description="Provides ability to search messages with bodies encoded in Quoted-Printable, as a workaround for the bug 667854."
                    em:creator="ClearCode Inc."

@@ -140,6 +140,13 @@
 
       // `Quoted-Printable` uses CRLF.
       return result.join('=\r\n');
+    },
+
+    getLocalizedPref : function(aKey) {
+      const rawValue = decodeURIComponent(escape(Prefs.getCharPref(aKey)));
+      if (!rawValue.match(/^chrome:\/\/[^\/]+\/locale\/.+\.properties$/))
+        return rawValue;
+      return Prefs.getComplexValue(aKey, Ci.nsIPrefLocalizedString).data;
     }
   };
 
