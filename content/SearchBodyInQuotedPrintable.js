@@ -6,7 +6,8 @@
   const Ci = Components.interfaces;
   const Cu = Components.utils;
   const Cr = Components.results;
-  const Prefs = Cc['@mozilla.org/preferences;1'].getService(Ci.nsIPrefBranch);
+  const { Services } = Cu.import('resource://gre/modules/Services.jsm', {});
+  const Prefs = Services.prefs;
 
   const SearchBodyInQuotedPrintable = function(aParams) {
     aParams = aParams || {};
